@@ -1,0 +1,21 @@
+{
+  "name": "fullstackopen",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "parcel index.html",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PitamberRana/fullstackopen.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/PitamberRana/fullstackopen/issues"
+  },
+  "homepage": "https://github.com/PitamberRana/fullstackopen#readme"
+}
