@@ -1,20 +1,28 @@
-import React from "react";
+import React, { useState } from "react";
+import Display from "./display";
+import MyButton from "./myButton";
 import Myh1 from "./Myh1";
-
-import { useState } from "react";
 
 const App = () => {
   const [counter, setCounter] = useState(0);
-  setTimeout(() => setCounter(counter + 1), 1000);
+  const increaseCount = () => setCounter(counter + 1);
+  const decreaseCount = () => setCounter(counter - 1);
+  // setTimeout(() => setCounter(counter + 1), 2000);
 
   console.log("rendering...", counter);
   let name = "Anthony";
   return (
     <div>
       <h2>{counter}</h2>
+      <Display text={counter} />
+      <MyButton buttonHandler={increaseCount} />
       <Myh1 fname={name} lname="Gwame1" count={counter} />
       <Myh1 fname="Gunthony" lname="Gwame2" count={counter} />
       <Myh1 fname="Panthony" lname="Gwame3" count={counter} />
+
+      <button onClick={increaseCount}>+</button>
+
+      <button onClick={decreaseCount}>-</button>
     </div>
   );
 };
