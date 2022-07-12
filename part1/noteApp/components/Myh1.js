@@ -1,9 +1,10 @@
 import React from "react";
 
-const Myh1 = ({ fname, lname }) => {
+const Myh1 = ({ fname, lname, count }) => {
+  console.log(fname);
   return (
     <h1>
-      My name is {fname} {lname}
+      My name is {fname} {lname} {count}
     </h1>
   );
 };
