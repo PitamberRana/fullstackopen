@@ -19,19 +19,50 @@ const App = () => {
 
   const addName = (event) => {
     event.preventDefault();
-    let nameSearch = persons.some(
+
+    let personDetail = persons.filter(
       (x) => x.name.toLowerCase() === newName.toLowerCase()
     );
+    let nameSearch = persons.some(
+      (person) => person.name.toLowerCase() === newName.toLowerCase()
+    );
+
     if (!nameSearch) {
       const newDetails = {
         name: newName,
         number: newNumber,
       };
+      axios.post("http://localhost:3001/persons", newDetails).then((obj) => {
+        console.log(obj.data);
+      });
       setPersons([...persons, newDetails]);
       setNewName("");
       setNewNumber("");
     } else {
-      alert(`${newName} is already added to phonebook`);
+      const personToUpdate = personDetail[0];
+      const numberToUpdate = { ...personToUpdate, number: newNumber };
+      if (
+        window.confirm(
+          `${newName} is already added to phonebook, replace the old number to the new one?`
+        )
+      ) {
+        console.log(personToUpdate);
+        console.log(numberToUpdate);
+        // console.log(personDetail);
+        axios
+          .put(
+            `http://localhost:3001/persons/${personToUpdate.id}`,
+            numberToUpdate
+          )
+          .then((obj) => {
+            console.log("updated", obj.data);
+            setPersons(
+              persons.map((x) => (x.id !== personToUpdate.id ? x : obj.data))
+            );
+            setNewName("");
+            setNewNumber("");
+          });
+      }
     }
   };
 
@@ -84,7 +115,11 @@ const App = () => {
         handleNumberChange={numberChange}
       />
       <h2>Numbers</h2>
-      <Content persons={persons} searchResult={results} />
+      <Content
+        persons={persons}
+        searchResult={results}
+        setPersons={setPersons}
+      />
     </div>
   );
 };

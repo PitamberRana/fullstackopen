@@ -1,5 +1,5 @@
 import Person from "./Person";
-const Content = ({ persons, searchResult }) => {
+const Content = ({ persons, searchResult, setPersons }) => {
   return (
     <div>
       {searchResult.length >= 1 ? (
@@ -11,7 +11,12 @@ const Content = ({ persons, searchResult }) => {
       ) : (
         <ul>
           {persons.map((person, idx) => (
-            <Person key={idx} person={person} />
+            <Person
+              key={idx}
+              person={person}
+              setPersons={setPersons}
+              persons={persons}
+            />
           ))}
         </ul>
       )}
