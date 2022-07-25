@@ -1,4 +1,5 @@
 import axios from "axios";
+import React from "react";
 import { useState, useEffect } from "react";
 const CountryDetails = ({ country }) => {
   const [weather, setWeather] = useState([
@@ -6,9 +7,10 @@ const CountryDetails = ({ country }) => {
   ]);
 
   useEffect(() => {
+    const api_key = process.env.REACT_APP_API_KEY;
     axios
       .get(
-        `http://api.weatherapi.com/v1/current.json?key=62a54f65377a47da8d580600222307&q=${country.name}`
+        `http://api.weatherapi.com/v1/current.json?key=${api_key}&q=${country.name}`
       )
       .then((response) => {
         // console.log(response.data);

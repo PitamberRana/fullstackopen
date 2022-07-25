@@ -3,6 +3,7 @@ import Content from "./Content";
 import Personform from "./PersonForm";
 import Search from "./Search";
 import axios from "axios";
+import Notification from "./Notification";
 
 const App = () => {
   const [persons, setPersons] = useState([]);
@@ -10,6 +11,7 @@ const App = () => {
   const [newNumber, setNewNumber] = useState("");
   const [searchValue, setSearchValue] = useState("");
   const [results, setResults] = useState([]);
+  const [msg, setMsg] = useState(null);
 
   useEffect(() => {
     axios.get("http://localhost:3001/persons").then((obj) => {
@@ -106,6 +108,7 @@ const App = () => {
         handleSearchChange={handleSearchChange}
         results={results}
       />
+      <Notification msg={msg} />
       <h2> Add New</h2>
       <Personform
         onSubmit={addName}
