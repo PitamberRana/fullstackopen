@@ -12,6 +12,7 @@ const App = () => {
   const [searchValue, setSearchValue] = useState("");
   const [results, setResults] = useState([]);
   const [msg, setMsg] = useState(null);
+  const [classStatus, setClassStatus] = useState("");
 
   useEffect(() => {
     axios.get("http://localhost:3001/persons").then((obj) => {
@@ -38,6 +39,9 @@ const App = () => {
         console.log(obj.data);
       });
       setPersons([...persons, newDetails]);
+      setMsg(`Added : ${newName} to the phonebook`);
+      setClassStatus("notify");
+      setTimeout(() => setMsg(null), 20000);
       setNewName("");
       setNewNumber("");
     } else {
@@ -61,6 +65,9 @@ const App = () => {
             setPersons(
               persons.map((x) => (x.id !== personToUpdate.id ? x : obj.data))
             );
+            setMsg(` New Number updated to the phonebook for ${newName} `);
+            setClassStatus("notify");
+            setTimeout(() => setMsg(null), 10000);
             setNewName("");
             setNewNumber("");
           });
@@ -108,7 +115,7 @@ const App = () => {
         handleSearchChange={handleSearchChange}
         results={results}
       />
-      <Notification msg={msg} />
+      <Notification msg={msg} classStatus={classStatus} />
       <h2> Add New</h2>
       <Personform
         onSubmit={addName}
@@ -122,6 +129,8 @@ const App = () => {
         persons={persons}
         searchResult={results}
         setPersons={setPersons}
+        setClassStatus={setClassStatus}
+        setMsg={setMsg}
       />
     </div>
   );

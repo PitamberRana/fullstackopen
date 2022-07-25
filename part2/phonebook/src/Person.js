@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const Person = ({ person, setPersons, persons }) => {
+const Person = ({ person, setPersons, persons, setClassStatus, setMsg }) => {
   const deleteFunc = (id) => {
     // console.log(`clicked from ${person.number}`);
     if (window.confirm(`Delete ${person.name} ?`)) {
@@ -10,20 +10,17 @@ const Person = ({ person, setPersons, persons }) => {
 
       const mapped = persons.filter((x) => person.id !== x.id);
       // console.log(mapped);
+
+      setMsg(` Deleted : ${person.name} from the phonebook`);
+      setClassStatus(`delete`);
       setPersons(mapped);
-      alert(`Deleted ${person.name} sucessfully !!`);
+      // alert(`Deleted ${person.name} sucessfully !!`);
     }
   };
   return (
     <li>
       {person.name} - {person.number}{" "}
-      <button
-        onClick={deleteFunc}
-        style={{ color: "red", border: "1px dotted red" }}
-      >
-        {" "}
-        Delete{" "}
-      </button>
+      <button onClick={deleteFunc}> Delete </button>
     </li>
   );
 };

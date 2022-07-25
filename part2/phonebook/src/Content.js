@@ -1,5 +1,13 @@
 import Person from "./Person";
-const Content = ({ persons, searchResult, setPersons }) => {
+const Content = ({
+  persons,
+  searchResult,
+  setPersons,
+  classStatus,
+  setClassStatus,
+  msg,
+  setMsg,
+}) => {
   return (
     <div>
       {searchResult.length >= 1 ? (
@@ -16,6 +24,8 @@ const Content = ({ persons, searchResult, setPersons }) => {
               person={person}
               setPersons={setPersons}
               persons={persons}
+              setClassStatus={setClassStatus}
+              setMsg={setMsg}
             />
           ))}
         </ul>
