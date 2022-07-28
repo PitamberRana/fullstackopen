@@ -112,7 +112,7 @@ const App = () => {
 
   return (
     <div>
-      <h2>Phonebook</h2>
+      <h2>*Phonebook*</h2>
       <Search
         searchValue={searchValue}
         handleSearchChange={handleSearchChange}
