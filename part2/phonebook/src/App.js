@@ -2,8 +2,9 @@ import { useState, useEffect } from "react";
 import Content from "./Content";
 import Personform from "./PersonForm";
 import Search from "./Search";
-import axios from "axios";
+// import axios from "axios";
 import Notification from "./Notification";
+import noteService from "./services/refact";
 
 const App = () => {
   const [persons, setPersons] = useState([]);
@@ -15,8 +16,9 @@ const App = () => {
   const [classStatus, setClassStatus] = useState("");
 
   useEffect(() => {
-    axios.get("http://localhost:3001/persons").then((obj) => {
-      setPersons(obj.data);
+    // axios.get("http://localhost:3001/persons")
+    noteService.getAll().then((data) => {
+      setPersons(data);
     });
   }, []);
 
@@ -35,13 +37,14 @@ const App = () => {
         name: newName,
         number: newNumber,
       };
-      axios.post("http://localhost:3001/persons", newDetails).then((obj) => {
-        console.log(obj.data);
+      // axios.post("http://localhost:3001/persons", newDetails)
+      noteService.create(newDetails).then((data) => {
+        console.log(data);
       });
       setPersons([...persons, newDetails]);
       setMsg(`Added : ${newName} to the phonebook`);
       setClassStatus("notify");
-      setTimeout(() => setMsg(null), 20000);
+      setTimeout(() => setMsg(null), 2000);
       setNewName("");
       setNewNumber("");
     } else {
@@ -55,22 +58,22 @@ const App = () => {
         console.log(personToUpdate);
         console.log(numberToUpdate);
         // console.log(personDetail);
-        axios
-          .put(
-            `http://localhost:3001/persons/${personToUpdate.id}`,
-            numberToUpdate
-          )
-          .then((obj) => {
-            console.log("updated", obj.data);
-            setPersons(
-              persons.map((x) => (x.id !== personToUpdate.id ? x : obj.data))
-            );
-            setMsg(` New Number updated to the phonebook for ${newName} `);
-            setClassStatus("notify");
-            setTimeout(() => setMsg(null), 10000);
-            setNewName("");
-            setNewNumber("");
-          });
+        // axios
+        //   .put(
+        //     `http://localhost:3001/persons/${personToUpdate.id}`,
+        //     numberToUpdate
+        //   )
+        noteService.update(personToUpdate.id, numberToUpdate).then((data) => {
+          console.log("updated", data);
+          setPersons(
+            persons.map((x) => (x.id !== personToUpdate.id ? x : data))
+          );
+          setMsg(` New Number updated to the phonebook for ${newName} `);
+          setClassStatus("notify");
+          setTimeout(() => setMsg(null), 2000);
+          setNewName("");
+          setNewNumber("");
+        });
       }
     }
   };

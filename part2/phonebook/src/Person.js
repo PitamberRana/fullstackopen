@@ -12,6 +12,7 @@ const Person = ({ person, setPersons, persons, setClassStatus, setMsg }) => {
       // console.log(mapped);
 
       setMsg(` Deleted : ${person.name} from the phonebook`);
+      setTimeout(() => setMsg(null), 2000);
       setClassStatus(`delete`);
       setPersons(mapped);
       // alert(`Deleted ${person.name} sucessfully !!`);
