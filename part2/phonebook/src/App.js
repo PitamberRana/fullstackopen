@@ -64,7 +64,7 @@ const App = () => {
         //     numberToUpdate
         //   )
         noteService.update(personToUpdate.id, numberToUpdate).then((data) => {
-          console.log("updated", data);
+          // console.log("updated", data);
           setPersons(
             persons.map((x) => (x.id !== personToUpdate.id ? x : data))
           );
