@@ -38,15 +38,21 @@ const App = () => {
         number: newNumber,
       };
       // axios.post("http://localhost:3001/persons", newDetails)
-      noteService.create(newDetails).then((data) => {
-        console.log(data);
-      });
-      setPersons([...persons, newDetails]);
-      setMsg(`Added : ${newName} to the phonebook`);
-      setClassStatus("notify");
-      setTimeout(() => setMsg(null), 2000);
-      setNewName("");
-      setNewNumber("");
+      noteService
+        .create(newDetails)
+        .then((data) => {
+          console.log(data);
+          setPersons([...persons, newDetails]);
+          setMsg(`Added : ${newName} to the phonebook`);
+          setClassStatus("notify");
+          setTimeout(() => setMsg(null), 2000);
+          setNewName("");
+          setNewNumber("");
+        })
+        .catch((error) => {
+          setMsg(error.response.data.error);
+          setTimeout(() => setMsg(null), 3000);
+        });
     } else {
       const personToUpdate = personDetail[0];
       const numberToUpdate = { ...personToUpdate, number: newNumber };
@@ -74,6 +80,10 @@ const App = () => {
           setNewName("");
           setNewNumber("");
         });
+        // .catch((error) => {
+        //   setMsg(error.response.data.error);
+        //   setTimeout(() => setMsg(null), 3000);
+        // });
       }
     }
   };
